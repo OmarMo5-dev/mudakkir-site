@@ -16,7 +16,7 @@ const CSS=`
 #mg-lightbox img{max-width:100%;max-height:100%;border-radius:16px;background:#fff}
 #mg-lightbox button{position:absolute;top:14px;inset-inline-start:14px;width:44px;height:44px;border-radius:50%;border:0;font-size:24px;cursor:pointer;background:#fff;color:#111}
 @media(max-width:1000px){#mud-gallery .mg-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-@media(max-width:640px){#mud-gallery .mg-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}#mud-gallery .mg-card{border-radius:16px}#mud-gallery .mg-group{font-size:19px}}
+@media(max-width:640px){#mud-gallery .mg-grid{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:14px;padding:4px 2px 16px;-webkit-overflow-scrolling:touch}#mud-gallery .mg-card{flex:0 0 76%;scroll-snap-align:center;border-radius:18px}#mud-gallery .mg-group{font-size:19px}}
 `;
 function runtime(){
   const T={
@@ -33,7 +33,7 @@ function runtime(){
   function build(sec,l){
     const t=T[l];const g=document.createElement("div");g.id="mud-gallery";g.dataset.lang=l;
     let h='<p class="mud-eyebrow">'+t.eye+'</p><h2 class="mud-heading">'+t.h+'</h2><p class="mg-intro">'+t.intro+'</p>';
-    GROUPS.forEach((ids,gi)=>{h+='<h3 class="mg-group">'+t.g[gi]+'</h3><div class="mg-grid">'+ids.map(i=>'<button type="button" class="mg-card" data-i="'+i+'"><img src="'+(window.__G&&window.__G[i]||'')+'" alt="'+ALT[i]+'" lang="ar" width="720" height="1280" decoding="async"></button>').join("")+'</div>'});
+    GROUPS.forEach((ids,gi)=>{h+='<h3 class="mg-group">'+t.g[gi]+'</h3><div class="mg-grid">'+ids.map(i=>'<button type="button" class="mg-card" data-i="'+i+'"><img src="'+(window.__G&&window.__G[i]||'')+'" alt="'+ALT[i]+'" lang="ar" width="720" height="1280"></button>').join("")+'</div>'});
     g.innerHTML=h;
     g.addEventListener("click",e=>{const c=e.target.closest(".mg-card");if(!c)return;const b=box();const im=b.querySelector("img");im.src=c.querySelector("img").src;im.alt=c.querySelector("img").alt;b.classList.add("on")});
     sec.appendChild(g);
